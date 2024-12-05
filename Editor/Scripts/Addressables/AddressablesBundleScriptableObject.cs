@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEditor;
 using UnityEditor.AddressableAssets.Settings;
+
 using UnityEngine;
 
 namespace Reflectis.SDK.CreatorKitEditor
@@ -101,7 +103,8 @@ namespace Reflectis.SDK.CreatorKitEditor
             if (settings)
             {
                 settings.OverridePlayerVersion = bundleName;
-                settings.ShaderBundleCustomNaming = bundleName;
+                // TODO: Unity6 refactor
+                //settings.ShaderBundleCustomNaming = bundleName;
 
                 foreach (var group in settings.groups)
                 {

@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 
 using UnityEditor;
 using UnityEditor.AddressableAssets;
-using UnityEditor.AddressableAssets.Build;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 
@@ -314,7 +313,9 @@ namespace Reflectis.SDK.CreatorKitEditor
                 else
                 {
                     EditorGUILayout.BeginHorizontal();
-                    foreach (var group in settings.groups.Where(x => !x.SchemaTypes.Contains(typeof(PlayerDataGroupSchema)) && x != settings.DefaultGroup))
+
+                    // TODO: Unity6 refactor
+                    foreach (var group in settings.groups.Where(x => /*!x.SchemaTypes.Contains(typeof(PlayerDataGroupSchema)) &&*/ x != settings.DefaultGroup))
                     {
                         EditorGUILayout.BeginVertical();
                         EditorGUILayout.LabelField($"<b>{group.name}</b>", style);
@@ -522,7 +523,9 @@ namespace Reflectis.SDK.CreatorKitEditor
         private void UpdatePlayerVersion()
         {
             settings.OverridePlayerVersion = playerVersionOverride;
-            settings.ShaderBundleCustomNaming = playerVersionOverride;
+
+            // TODO: Unity6 refactor
+            //settings.ShaderBundleCustomNaming = playerVersionOverride;
 
             SaveChanges();
         }
@@ -552,44 +555,48 @@ namespace Reflectis.SDK.CreatorKitEditor
 
         private bool IsAddressablesSettingsConfigured()
         {
-            return
-                settings.RemoteCatalogLoadPath.GetName(settings) == remote_load_path_variable_name &&
-                settings.RemoteCatalogBuildPath.GetName(settings) == remote_build_path_variable_name &&
-                !settings.BundleLocalCatalog &&
-                settings.BuildRemoteCatalog &&
-                settings.CheckForContentUpdateRestrictionsOption
-                        == CheckForContentUpdateRestrictionsOptions.ListUpdatedAssetsWithRestrictions &&
-                settings.MaxConcurrentWebRequests == 3 &&
-                settings.CatalogRequestsTimeout == 0 &&
-                !settings.IgnoreUnsupportedFilesInBuild &&
-                !settings.UniqueBundleIds &&
-                settings.ContiguousBundles &&
-                settings.NonRecursiveBuilding &&
-                settings.ShaderBundleNaming == ShaderBundleNaming.Custom &&
-                settings.ShaderBundleCustomNaming == playerVersionOverride &&
-                settings.MonoScriptBundleNaming == MonoScriptBundleNaming.Disabled &&
-                !settings.DisableVisibleSubAssetRepresentations;
+            return false;
+
+            // TODO: Unity6 refactor
+            //settings.RemoteCatalogLoadPath.GetName(settings) == remote_load_path_variable_name &&
+            //    settings.RemoteCatalogBuildPath.GetName(settings) == remote_build_path_variable_name &&
+            //    !settings.BundleLocalCatalog &&
+            //    settings.BuildRemoteCatalog &&
+            //    settings.CheckForContentUpdateRestrictionsOption
+            //            == CheckForContentUpdateRestrictionsOptions.ListUpdatedAssetsWithRestrictions &&
+            //    settings.MaxConcurrentWebRequests == 3 &&
+            //    settings.CatalogRequestsTimeout == 0 &&
+            //    !settings.IgnoreUnsupportedFilesInBuild &&
+            //    !settings.UniqueBundleIds &&
+            //    settings.ContiguousBundles &&
+            //    settings.NonRecursiveBuilding &&
+            //    settings.ShaderBundleNaming == ShaderBundleNaming.Custom &&
+            //    settings.ShaderBundleCustomNaming == playerVersionOverride &&
+            //    settings.MonoScriptBundleNaming == MonoScriptBundleNaming.Disabled &&
+            //    !settings.DisableVisibleSubAssetRepresentations;
         }
 
         private void ConfigureAddressablesSettings()
         {
-            settings.RemoteCatalogLoadPath.SetVariableByName(settings, remote_load_path_variable_name);
-            settings.RemoteCatalogBuildPath.SetVariableByName(settings, remote_build_path_variable_name);
-            settings.BundleLocalCatalog = false;
-            settings.BuildRemoteCatalog = true;
-            settings.CheckForContentUpdateRestrictionsOption = CheckForContentUpdateRestrictionsOptions.ListUpdatedAssetsWithRestrictions;
-            settings.ContentStateBuildPath = string.Empty;
-            settings.MaxConcurrentWebRequests = 3;
-            settings.CatalogRequestsTimeout = 0;
-            settings.IgnoreUnsupportedFilesInBuild = false;
-            settings.UniqueBundleIds = false;
-            settings.ContiguousBundles = true;
-            settings.NonRecursiveBuilding = true;
-            settings.ShaderBundleNaming = ShaderBundleNaming.Custom;
-            settings.ShaderBundleCustomNaming = playerVersionOverride;
-            settings.MonoScriptBundleNaming = MonoScriptBundleNaming.Disabled;
-            settings.DisableVisibleSubAssetRepresentations = false;
-            settings.BuildRemoteCatalog = true;
+
+            // TODO: Unity6 refactor
+            //settings.RemoteCatalogLoadPath.SetVariableByName(settings, remote_load_path_variable_name);
+            //settings.RemoteCatalogBuildPath.SetVariableByName(settings, remote_build_path_variable_name);
+            //settings.BundleLocalCatalog = false;
+            //settings.BuildRemoteCatalog = true;
+            //settings.CheckForContentUpdateRestrictionsOption = CheckForContentUpdateRestrictionsOptions.ListUpdatedAssetsWithRestrictions;
+            //settings.ContentStateBuildPath = string.Empty;
+            //settings.MaxConcurrentWebRequests = 3;
+            //settings.CatalogRequestsTimeout = 0;
+            //settings.IgnoreUnsupportedFilesInBuild = false;
+            //settings.UniqueBundleIds = false;
+            //settings.ContiguousBundles = true;
+            //settings.NonRecursiveBuilding = true;
+            //settings.ShaderBundleNaming = ShaderBundleNaming.Custom;
+            //settings.ShaderBundleCustomNaming = playerVersionOverride;
+            //settings.MonoScriptBundleNaming = MonoScriptBundleNaming.Disabled;
+            //settings.DisableVisibleSubAssetRepresentations = false;
+            //settings.BuildRemoteCatalog = true;
 
             SaveSettings();
         }
